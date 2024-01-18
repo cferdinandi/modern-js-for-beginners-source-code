@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>Images and screen reader users</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<style type="text/css">
+			body {
+				margin: 0 auto;
+				max-width: 40em;
+				width: 88%;
+			}
+
+			img {
+				height: auto;
+				max-width: 100%;
+			}
+
+			figure {
+				margin: 0 0 1em;
+			}
+
+			figcaption {
+				color: #808080;
+				font-style: italic;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<h1>Images and screen reader users</h1>
+
+
+		<p>
+			<!-- The filename is read aloud by screen readers -->
+			<img src="edgar-the-crab.jpg">
+		</p>
+
+		<p>
+			<!-- The alt text is read aloud by screen readers instead -->
+			<img
+				alt="A crab standing in wet, packed sand, waving as as the tide gently laps the shore behind him"
+				src="edgar-the-crab.jpg"
+			>
+		</p>
+
+		<p>
+			<!-- This is bad alt text -->
+			<img
+				alt="The crab I met on my vacation"
+				src="edgar-the-crab.jpg"
+			>
+		</p>
+
+		<p>
+			<!-- Do not use the title attribute to provide alt text -->
+			<img
+				title="A crab standing in wet, packed sand, waving as as the tide gently laps the shore behind him"
+				src="edgar-the-crab.jpg"
+			>
+		</p>
+
+		<p>
+			<!-- A better use of the title attribute -->
+			<img
+				alt="A crab standing in wet, packed sand, waving as as the tide gently laps the shore behind him"
+				title="A crab standing in wet, packed sand, waving as as the tide gently laps the shore behind him"
+				src="edgar-the-crab.jpg"
+			>
+		</p>
+
+		<p>
+			<!-- A better use of the title attribute -->
+			<img
+				title="The crab I met on my vacation"
+				alt="A crab standing in wet, packed sand, waving as as the tide gently laps the shore behind him"
+				src="edgar-the-crab.jpg"
+			>
+		</p>
+
+		<!-- This is generally better than using the title attribute -->
+		<figure>
+			<img
+				alt="A crab standing in wet, packed sand, waving as as the tide gently laps the shore behind him"
+				src="edgar-the-crab.jpg"
+			>
+			<figcaption>The crab I met on my vacation</figcaption>
+		</figure>
+
+		<!-- Use only for decorative images -->
+		<img alt="" src="/imgs/my-decorative-image.jpg">
+	</body>
+</html>

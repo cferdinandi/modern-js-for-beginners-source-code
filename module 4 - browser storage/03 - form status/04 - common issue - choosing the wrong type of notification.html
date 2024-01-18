@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Form Autosave - Form Status</title>
+
+	<style type="text/css">
+		body {
+			margin: 1em auto;
+			max-width: 40em;
+			width: 88%;
+		}
+
+		label,
+		input,
+		textarea {
+			display: block;
+			width: 100%;
+		}
+
+		input,
+		textarea {
+			margin-bottom: 1em;
+		}
+
+		textarea {
+			height: 8em;
+		}
+	</style>
+</head>
+<body>
+
+	<h1>Form Autosave - Form Status</h1>
+
+	<form id="save-me">
+
+		<label for="name">Name</label>
+		<input type="text" name="name" id="name">
+
+		<label for="address">Address</label>
+		<input type="text" name="address" id="address">
+
+		<label for="email">Email</label>
+		<input type="email" name="email" id="email">
+
+		<label for="more">Additional thoughts?</label>
+		<textarea name="more" id="more"></textarea>
+
+		<p>
+			<button type="submit">Submit</button>
+		</p>
+
+		<div id="notification" aria-live="polite"></div>
+
+	</form>
+
+	<script>
+		// Get the form element and notification
+		let form = document.querySelector('#save-me');
+		let notification = document.querySelector('#notification');
+
+		// localStorage prefix
+		let prefix = 'autosave_fields';
+
+		// Hold debouncer
+		let debounce;
+
+		/**
+		 * Serialize all form data into an object
+		 * @param  {FormData} data The FormData object to serialize
+		 * @return {String}        The serialized form data
+		 */
+		function serialize (data) {
+			let obj = {};
+			for (let [key, value] of data) {
+				if (obj[key] !== undefined) {
+					if (!Array.isArray(obj[key])) {
+						obj[key] = [obj[key]];
+					}
+					obj[key].push(value);
+				} else {
+					obj[key] = value;
+				}
+			}
+			return obj;
+		}
+
+		/**
+		 * Show a "fields saved" status message
+		 */
+		function showStatus () {
+
+			// Show the status message
+			notification.textContent = 'Your info has been automatically saved. You can complete and submit the form later.';
+
+			// Clear it after 6 seconds
+			setTimeout(function () {
+				notification.textContent = '';
+			}, 6000);
+
+		}
+
+		/**
+		 * Handle input events
+		 * @param  {Event} event The event object
+		 */
+		function inputHandler (event) {
+
+			// Serialize the form fields
+			let data = serialize(new FormData(form));
+
+			// Stringify the object and save it to localStorage
+			localStorage.setItem(prefix, JSON.stringify(data));
+
+			// Show a "data saved" message
+			showStatus();
+
+		}
+
+		/**
+		 * Clear all of the saved fields from storage
+		 */
+		function clearStorage () {
+			localStorage.removeItem(prefix);
+		}
+
+		/**
+		 * Load saved data from localStorage
+		 */
+		function loadSaved () {
+
+			// Get saved data from localStorage
+			// If there's nothing saved, bail
+			let saved = JSON.parse(localStorage.getItem(prefix));
+			if (!saved) return;
+
+			// Get all of the fields in the form
+			let fields = form.elements;
+
+			// Loop through each one and load saved data if it exists
+			for (let field of fields) {
+				if (!saved[field.name]) continue;
+				field.value = saved[field.name];
+			}
+
+		}
+
+		// Load saved data from localStorage
+		loadSaved();
+
+		// Listen for DOM events
+		form.addEventListener('input', inputHandler);
+		form.addEventListener('submit', clearStorage);
+	</script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+body {
+	margin: 0 auto;
+	max-width: 40em;
+	width: 88%;
+}
+
+/**
+ * A simple grid layout
+ */
+.row {
+	display: grid;
+	grid-template-columns: auto auto auto;
+	text-align: center;
+}
+
+.grid {
+	min-height: 6em;
+	padding: 1em;
+}
+
+/**
+ * Make sure images scale
+ */
+img {
+	height: auto;
+	max-width: 100%;
+}
+
+/**
+ * Scale image to the full width of the page
+ */
+.img-full {
+	width: 100%;
+}
+
+/**
+ * Style buttons to not look like buttons
+ */
+[data-monster] {
+	background-color: transparent;
+	border: 0;
+}
+
+/**
+ * Style link to look like a button
+ */
+.btn {
+	background-color: #f7f7f7;
+	border: 1px solid #e5e5e5;
+	border-radius: 0.1875em;
+	color: #000000;
+	padding: 0.5em 1em;
+	text-decoration: none;
+}

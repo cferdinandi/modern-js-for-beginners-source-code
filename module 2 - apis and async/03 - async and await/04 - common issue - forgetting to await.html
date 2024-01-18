@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Random Ron - async/await</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<style type="text/css">
+			body {
+				margin: 0 auto;
+				max-width: 40em;
+				width: 88%;
+			}
+
+			img {
+				height: auto;
+				max-width: 100%;
+				width: 100%;
+			}
+		</style>
+	</head>
+	<body>
+
+		<h1>Random Ron - async/await</h1>
+
+		<img alt="Ron Swanson standing in front of a buffet stating, 'I've said too much.'" src="https://giphygifs.s3.amazonaws.com/media/iofbYa67AbBg4/giphy.gif">
+
+		<blockquote id="quote" aria-live="polite">
+			<em>Getting a fresh quote...</em>
+		</blockquote>
+
+		<p>
+			<button id="get-quote">More Ron</button>
+		</p>
+
+		<script>
+			// Get the blockquote and button elements
+			let quote = document.querySelector('#quote');
+			let btn = document.querySelector('#get-quote');
+
+			// Hold previous used quotes
+			let quotes = [];
+
+			// Get a fresh quote and render it into the DOM
+			async function getQuote () {
+				try {
+
+					// Get the quotes
+					let response = await fetch('https://ron-swanson-quotes.herokuapp.com/v2/quotes');
+					if (!response.ok) throw response.status;
+
+					// Get JSON data from the resonse
+					let data = response.json();
+					if (!data) throw 'No data';
+
+					// If there are at least 50 previously used quotes, remove the first one
+					if (quotes.length > 49) {
+						quotes.shift();
+					}
+
+					// If this quote was already used, recursively fetch a new one
+					// Then, end the current callback function
+					if (quotes.includes(data[0])) {
+						getQuote();
+						return;
+					}
+
+					// Otherwise, update the UI and add the quote to the list
+					quote.textContent = data[0];
+					quotes.push(data[0]);
+
+				} catch (error) {
+					quote.textContent = '[Something went wrong, sorry!] I have a joke for you... The government in this town is excellent, and uses your tax dollars efficiently.';
+				}
+			}
+
+			// Get a quote on page load
+			getQuote();
+
+			// Get a quote when the #get-quote button is clicked
+			btn.addEventListener('click', getQuote);
+		</script>
+	</body>
+</html>

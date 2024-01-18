@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>Converting an Array into HTML</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<style type="text/css">
+			body {
+				margin: 0 auto;
+				max-width: 40em;
+				width: 88%;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<div id="app"></div>
+
+		<script>
+			let wizards = ['Gandalf', 'Radagast', 'Merlin'];
+			let app = document.querySelector('#app');
+
+			// Using Array.map() and Array.join()
+			app.innerHTML = '<ul>' + wizards.map(function (wizard) {
+				return '<li>' + wizard + '</li>';
+			}).join('') + '</ul>';
+
+			// Using Array.forEach() and string concatenation
+			// let html = '';
+			// for (let wizard of wizards) {
+			// 	html += '<li>' + wizard + '</li>';
+			// }
+			// app.innerHTML = '<ul>' + html + '</ul>';
+		</script>
+	</body>
+</html>

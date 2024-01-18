@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Aria Live</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<style type="text/css">
+			body {
+				margin: 0 auto;
+				max-width: 40em;
+				width: 88%;
+			}
+		</style>
+	</head>
+	<body>
+
+		<div id="app" aria-live="polite">
+			The content of this element is going to change after 5 seconds.
+		</div>
+
+
+		<script>
+			let app = document.querySelector('#app');
+			setTimeout(function () {
+				app.textContent = 'Whoa, this is new!';
+			}, 5000);
+		</script>
+	</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Password Visibility</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<style type="text/css">
+			body {
+				margin: 0 auto;
+				max-width: 40em;
+				width: 88%;
+			}
+
+			label {
+				display: block;
+				width: 100%;
+			}
+
+			input {
+				margin-bottom: 1em;
+			}
+
+			[type="checkbox"] {
+				margin-bottom: 0;
+				margin-right: 0.25em;
+			}
+		</style>
+	</head>
+	<body>
+
+		<h1>Password Visibility</h1>
+
+		<p>Enter your username and password to login.</p>
+
+		<form>
+			<div>
+				<label for="username">Username</label>
+				<input type="text" name="username" id="username">
+			</div>
+
+			<div>
+				<label for="password">Password</label>
+				<input type="password" name="password" id="password">
+			</div>
+
+			<div>
+				<label for="show-password">
+					<input type="checkbox" name="show-passwords" id="show-password">
+					Show password
+				</label>
+			</div>
+
+			<p>
+				<button type="submit">Log In</button>
+			</p>
+		</form>
+
+
+		<script>
+			// Get fields
+			let toggle = document.querySelector('#show-password');
+			let password = document.querySelector('#password');
+
+			// Listen for click events
+			toggle.addEventListener('click', function () {
+
+				// If the toggle is checked, change the type to "text"
+				// Otherwise, change it back to "password"
+				if (toggle.checked) {
+					password.type = 'text';
+				} else {
+					password.type = 'password';
+				}
+
+			});
+		</script>
+	</body>
+</html>

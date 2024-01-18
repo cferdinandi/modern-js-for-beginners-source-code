@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Click Count</title>
+
+	<style type="text/css">
+		body {
+			margin: 1em auto;
+			max-width: 40em;
+			width: 88%;
+		}
+	</style>
+</head>
+<body>
+
+	<h1>Click Count</h1>
+
+	<p><button id="click-me">Click Me</button></p>
+	<p>You clicked the button <strong id="num">0</strong> times.</p>
+
+	<script>
+		// Get the DOM elements
+		let btn = document.querySelector('#click-me');
+		let num = document.querySelector('#num');
+
+		// Track the number of clicks
+		let count = 0;
+
+		/**
+		 * Count the clicks
+		 */
+		function countClicks () {
+
+			// Increase the count by 1
+			count++;
+
+			// Update the UI
+			num.textContent = count;
+
+		}
+
+		// Listen for button clicks
+		btn.addEventListener('click', countClicks);
+	</script>
+</body>
+</html>

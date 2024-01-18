@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Password Visibility - Multiple Forms</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<style type="text/css">
+			body {
+				margin: 0 auto;
+				max-width: 40em;
+				width: 88%;
+			}
+
+			label {
+				display: block;
+				width: 100%;
+			}
+
+			input {
+				margin-bottom: 1em;
+			}
+
+			[type="checkbox"] {
+				margin-bottom: 0;
+				margin-right: 0.25em;
+			}
+		</style>
+	</head>
+	<body>
+
+		<h1>Password Visibility - Multiple Forms</h1>
+
+		<h2>Change Username</h2>
+		<p>Enter your username and password to change your username.</p>
+
+		<form>
+			<div>
+				<label for="username">Username</label>
+				<input type="text" name="username" id="username">
+			</div>
+
+			<div>
+				<label for="password">Password</label>
+				<input type="password" name="password" id="password">
+			</div>
+
+			<div>
+				<label for="show-password">
+					<input type="checkbox" name="show-password" id="show-password">
+					Show password
+				</label>
+			</div>
+
+			<p>
+				<button type="submit">Change Username</button>
+			</p>
+		</form>
+
+
+		<h2>Change Password</h2>
+		<p>Enter your current password and new password below.</p>
+
+		<form>
+			<div>
+				<label for="current-password">Current Password</label>
+				<input type="password" name="current-password" id="current-password">
+			</div>
+
+			<div>
+				<label for="new-password">New Password</label>
+				<input type="password" name="new-password" id="new-password">
+			</div>
+
+			<div>
+				<label for="show-passwords">
+					<input type="checkbox" name="show-passwords" id="show-passwords">
+					Show passwords
+				</label>
+			</div>
+
+			<p>
+				<button type="submit">Change Passwords</button>
+			</p>
+		</form>
+
+		<script>
+			// Get the form elements
+			let togglePW = document.querySelector('#show-password');
+			let togglePWs = document.querySelector('#show-passwords');
+			let password = document.querySelector('#password');
+			let currentPW = document.querySelector('#current-password');
+			let newPW = document.querySelector('#new-password');
+
+			// Listen to clicks on the #show-password checkbox
+			togglePW.addEventListener('click', function (event) {
+
+				// If the toggle is checked, change the type to "text"
+				// Otherwise, change it back to "password"
+				if (event.target.checked) {
+					password.type = 'text';
+				} else {
+					password.type = 'password';
+				}
+
+			});
+
+			// Listen to clicks on the #show-password checkbox
+			togglePWs.addEventListener('click', function (event) {
+
+				// If the toggle is checked, change the type to "text"
+				// Otherwise, change it back to "password"
+				if (event.target.checked) {
+					currentPW.type = 'text';
+					newPW.type = 'text';
+				} else {
+					currentPW.type = 'password';
+					newPW.type = 'password';
+				}
+
+			});
+		</script>
+	</body>
+</html>

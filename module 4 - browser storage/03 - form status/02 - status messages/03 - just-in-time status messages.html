@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>Short-Lived Status Message</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<style type="text/css">
+			body {
+				margin: 0 auto;
+				max-width: 30em;
+				width: 88%;
+			}
+
+			label,
+			input {
+				display: block;
+				width: 100%;
+			}
+
+			input {
+				margin-bottom: 1em;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<h1>Just-In-Time Status Message</h1>
+
+		<form>
+			<label for="current-pw">Current Password</label>
+			<input type="password" id="current-pw">
+
+			<label for="new-pw">New Password</label>
+			<input type="password" id="new-pw">
+
+			<p><button>Change Password</button></p>
+		</form>
+
+
+		<script>
+			let form = document.querySelector('form');
+
+			// Show a status message
+			function showStatus () {
+
+				// Create a notification
+				let notification = document.createElement('div');
+				notification.setAttribute('aria-live', 'polite');
+
+				// Inject it into the DOM
+				form.append(notification);
+
+				// Add text after it's in the UI
+				setTimeout(function () {
+					notification.textContent = 'Your password was updated!';
+				}, 1);
+
+				// Remove it after 4 seconds
+				setTimeout(function () {
+					notification.remove();
+				}, 4000);
+
+			}
+
+			// Listen for form submit events
+			form.addEventListener('submit', function (event) {
+
+				// Stop the form from reloading the page
+				event.preventDefault();
+
+				// Show a status message
+				showStatus();
+
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Random Ron</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<style type="text/css">
+			body {
+				margin: 0 auto;
+				max-width: 40em;
+				width: 88%;
+			}
+
+			img {
+				height: auto;
+				max-width: 100%;
+				width: 100%;
+			}
+		</style>
+	</head>
+	<body>
+
+		<h1>Random Ron</h1>
+
+		<img alt="Ron Swanson standing in front of a buffet stating, 'I've said too much.'" src="https://giphygifs.s3.amazonaws.com/media/iofbYa67AbBg4/giphy.gif">
+
+		<blockquote id="quote" aria-live="polite">
+			<em>Getting a fresh quote...</em>
+		</blockquote>
+
+		<p>
+			<button id="get-quote">More Ron</button>
+		</p>
+
+		<script>
+			// Get the blockquote and button elements
+			let quote = document.querySelector('#quote');
+			let btn = document.querySelector('#get-quote');
+
+			// Get a fresh quote and render it into the DOM
+			function getQuote () {
+				fetch('https://ron-swanson-quotes.herokuapp.com/v2/quotes').then(function (response) {
+					if (response.ok) {
+						return response.json();
+					}
+					throw response.status;
+				}).then(function (data) {
+					quote.textContent = data[0];
+				}).catch(function (error) {
+					quote.textContent = '[Something went wrong, sorry!] I have a joke for you... The government in this town is excellent, and uses your tax dollars efficiently.';
+				});
+			}
+
+			// Get a quote on page load
+			getQuote();
+
+			// Get a quote when the #get-quote button is clicked
+			btn.addEventListener('click', getQuote);
+		</script>
+	</body>
+</html>
